@@ -13,5 +13,6 @@ public class FileResponse {
     private String fileName;
     private String originalFileName;
     private String contentType;
+    private String filePath;
     private long size;
 }

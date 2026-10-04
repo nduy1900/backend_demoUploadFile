@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/files")
 public class FileController {
