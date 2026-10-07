@@ -56,7 +56,7 @@ public class FileService {
             fileEntity.setFileType(extension);
             fileEntity.setFileSize(file.getSize());
             fileRepository.save(fileEntity);
-            return new FileResponse(fileName, originalFilename, file.getContentType(), filePath.toString(), file.getSize());
+            return new FileResponse(fileEntity.getId(), fileName, originalFilename, file.getContentType(), filePath.toString(), file.getSize());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

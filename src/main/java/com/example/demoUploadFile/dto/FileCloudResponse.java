@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileCloudResponse {
+    private Long id;
     private String fileName;
     private String originalFileName;
     private String contentType;

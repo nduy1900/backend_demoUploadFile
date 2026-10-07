@@ -28,14 +28,6 @@ public class FileCloudService {
                         "folder", "uploads"
                 )
         );
-
-        FileCloudResponse cloudResponse = new FileCloudResponse();
-        cloudResponse.setFileName(result.get("public_id").toString());
-        cloudResponse.setOriginalFileName(file.getOriginalFilename());
-        cloudResponse.setContentType(file.getContentType());
-        cloudResponse.setSize(file.getSize());
-        cloudResponse.setFilePath(result.get("secure_url").toString());
-
         // Lưu thông tin vào trong DB
         FileEntity fileEntity = new FileEntity();
         fileEntity.setFileName(result.get("public_id").toString());
@@ -44,6 +36,15 @@ public class FileCloudService {
         fileEntity.setFileType(file.getContentType());
         fileEntity.setFileSize(file.getSize());
         fileRepository.save(fileEntity);
+
+        // Trả response
+        FileCloudResponse cloudResponse = new FileCloudResponse();
+        cloudResponse.setId(fileEntity.getId());
+        cloudResponse.setFileName(result.get("public_id").toString());
+        cloudResponse.setOriginalFileName(file.getOriginalFilename());
+        cloudResponse.setContentType(file.getContentType());
+        cloudResponse.setSize(file.getSize());
+        cloudResponse.setFilePath(result.get("secure_url").toString());
         return cloudResponse;
     }
 
@@ -61,7 +62,7 @@ public class FileCloudService {
 
     // XOÁ FILE
     public String deleteFile(long id) throws IOException {
-        FileEntity fileInDB = fileRepository.findById(id).orElse(null);
+        FileEntity fileInDB = fileRepository.findById(id).orElseThrow(() -> new RuntimeException("Không tìm thấy file có id: " + id));
         // XOÁ Ở CLOUDINARY
         cloudinary.uploader().destroy(fileInDB.getFileName(), ObjectUtils.emptyMap());
 

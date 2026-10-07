@@ -38,7 +38,7 @@ public class FileCloudController {
 
     // XOÁ FILE
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteFileById(@PathVariable String id) throws IOException {
-        return ResponseEntity.ok().body(fileCloudService.deleteFile(Long.parseLong(id)));
+    public ResponseEntity<String> deleteFileById(@PathVariable long id) throws IOException {
+        return ResponseEntity.ok().body(fileCloudService.deleteFile(id));
     }
 }
